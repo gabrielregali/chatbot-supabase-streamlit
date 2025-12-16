@@ -160,24 +160,52 @@ if prompt := st.chat_input("Hazme una pregunta sobre estrategia militar..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
-
-    with st.spinner("Buscando en Sun Tzu y generando respuesta..."):
-        # 2. Obtener el embedding de la pregunta
-        query_embedding = get_embedding(prompt)
-
-        # 3. Recuperar el contexto de Supabase
-        context = retrieve_context(query_embedding)
-        
-        if context:
-            # 4. Generar la respuesta usando Gemini con el contexto
-            response = generate_response(prompt, context)
-        else:
-            # Si retrieve_context falló, ya mostró un error
-            response = "Lo siento, no pude obtener contexto relevante de la base de datos."
-
-    # 5. Mostrar la respuesta
-    with st.chat_message("assistant"):
-        st.markdown(response)
     
-    # 6. Guardar la respuesta en el historial
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    # ----------------------------------------------------
+    # 💥 LÓGICA DE COMPROBACIÓN SOCIAL 💥
+    # ----------------------------------------------------
+    
+    # Normalizar la entrada a minúsculas para una comprobación simple
+    normalized_prompt = prompt.lower().strip()
+    response = ""
+    
+    if any(keyword in normalized_prompt for keyword in ["hola", "saludos", "qué tal", "quién eres"]):
+        response = "¡Saludos! Soy un experto en la estrategia de *El Arte de la Guerra* de Sun Tzu. Pregúntame sobre cualquier concepto, terreno o principio militar que desees."
+    
+    elif any(keyword in normalized_prompt for keyword in ["gracias", "muchas gracias", "te lo agradezco", "chau", "adiós"]):
+        response = "Ha sido un honor ayudar. Recuerda: toda guerra se basa en el engaño. ¡Vuelve pronto!"
+    
+    # ----------------------------------------------------
+    # FIN DE LA COMPROBACIÓN SOCIAL -> Iniciar Flujo RAG
+    # ----------------------------------------------------
+    
+    if response:
+        # 2. Si la respuesta es social, la mostramos directamente
+        with st.chat_message("assistant"):
+            st.markdown(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        
+    else:
+        # 3. Si no es social, procedemos con el flujo RAG (Embedding, Supabase, Gemini)
+        
+        with st.spinner("Buscando en Sun Tzu y generando respuesta..."):
+            
+            # 2. Obtener el embedding de la pregunta
+            query_embedding = get_embedding(prompt)
+
+            # 3. Recuperar el contexto de Supabase
+            context = retrieve_context(query_embedding)
+            
+            if context:
+                # 4. Generar la respuesta usando Gemini con el contexto
+                response = generate_response(prompt, context)
+            else:
+                # Si retrieve_context falló o no encontró nada
+                response = "Lo siento, no pude obtener contexto relevante de la base de datos."
+
+        # 5. Mostrar la respuesta RAG
+        with st.chat_message("assistant"):
+            st.markdown(response)
+        
+        # 6. Guardar la respuesta RAG en el historial
+        st.session_state.messages.append({"role": "assistant", "content": response})
