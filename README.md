@@ -1,52 +1,59 @@
-🛡️ Sun Tzu: Chatbot RAG
-Asistente inteligente basado en RAG (Retrieval-Augmented Generation) que responde consultas sobre "El Arte de la Guerra" utilizando una base de datos vectorial propia.
+# 🛡️ **Sun Tzu: Chatbot RAG**
 
-🌟 Características
-IA Estratégica: Respuestas precisas basadas exclusivamente en el contexto del libro.
+Asistente inteligente basado en la arquitectura **RAG (Retrieval-Augmented Generation)** que responde consultas sobre el libro *"El Arte de la Guerra"* utilizando una base de datos vectorial propia.
 
-Arquitectura Eficiente: Migrado de n8n a Python para optimizar costos y control.
 
-Búsqueda Semántica: Uso de pgvector en Supabase para encontrar fragmentos relevantes.
 
-Cero Costo: Corre íntegramente en capas gratuitas (Streamlit Cloud + Gemini API).
+---
 
-🛠️ Stack Tecnológico
-Lenguaje: Python
+## 🌟 **Características Principales**
+* **IA Estratégica:** Respuestas precisas basadas exclusivamente en el contexto del libro para evitar alucinaciones.
+* **Arquitectura Eficiente:** Migración exitosa de n8n a **Python puro** para optimizar el control y eliminar costes.
+* **Búsqueda Semántica:** Implementación de `pgvector` en **Supabase** para recuperar información por significado y no solo por palabras clave.
+* **Coste Cero:** Solución desplegada íntegramente en capas gratuitas (Streamlit Cloud + Gemini API).
 
-LLM: Google Gemini 2.5 Flash
+---
 
-Base de Datos: Supabase (PostgreSQL + pgvector)
+## 🛠️ **Stack Tecnológico**
+* **Lenguaje:** Python 3.x
+* **Motor de IA (LLM):** Google Gemini 2.5 Flash
+* **Base de Datos Vectorial:** Supabase (PostgreSQL + pgvector)
+* **Modelo de Embeddings:** `all-mpnet-base-v2` (BERT)
+* **Interfaz de Usuario:** Streamlit
 
-Embeddings: all-mpnet-base-v2 (BERT)
+---
 
-Interfaz: Streamlit
+## 🚀 **Instalación Rápida**
 
-🚀 Instalación Rápida
-Clonar repositorio:
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone [https://github.com/gabrielregali/chatbot-supabase-streamlit.git](https://github.com/gabrielregali/chatbot-supabase-streamlit.git)
+    ```
+2.  **Instalar dependencias:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **Configurar Secretos (`.streamlit/secrets.toml`):**
+    ```toml
+    GEMINI_API_KEY = "tu_api_key"
+    SUPABASE_URL = "tu_url_proyecto"
+    SUPABASE_KEY = "tu_anon_key"
+    ```
+4.  **Ejecutar la App:**
+    ```bash
+    streamlit run app.py
+    ```
 
-Bash
+---
 
-git clone https://github.com/tu-usuario/tu-repositorio.git
-Instalar dependencias:
+## 🏭 **Aplicación en Mantenimiento Industrial**
+Este proyecto funciona como una **Prueba de Concepto (PoC)** para la **Ingeniería de Confiabilidad**. La misma lógica permite cargar manuales técnicos de maquinaria pesada para:
+* **Reducción del MTTR** mediante consultas rápidas de averías.
+* **Digitalización del conocimiento** de expertos en mantenimiento.
+* **Asistencia en procedimientos** de seguridad **LOTO** de forma conversacional.
 
-Bash
+---
 
-pip install -r requirements.txt
-Configurar Secretos: Crea un archivo .streamlit/secrets.toml con tus llaves:
+🔗 **App en vivo:** [https://chatbot-supabase-app-fmfm8zqgqnbqwrkaebv4cv.streamlit.app/]
 
-Ini, TOML
-
-GEMINI_API_KEY = "tu_key"
-SUPABASE_URL = "tu_url"
-SUPABASE_KEY = "tu_key"
-Ejecutar:
-
-Bash
-
-streamlit run app.py
-🏭 Aplicación Industrial
-Este proyecto es una prueba de concepto para Ingeniería de Confiabilidad. La misma lógica puede aplicarse a manuales de mantenimiento industrial para reducir el MTTR y digitalizar el conocimiento técnico.
-
-🔗 App en vivo: [https://chatbot-supabase-app-fmfm8zqgqnbqwrkaebv4cv.streamlit.app/]
-
-👤 Autor: [Gabriel Alfredo Regali]
+👤 **Autor:** [Gabriel Alfredo Regali]
